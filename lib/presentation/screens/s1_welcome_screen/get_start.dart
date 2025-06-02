@@ -60,7 +60,7 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
                 isVisible: _currentPage == 1,
               ),
               OnboardingPage(
-                image: 'assets/images/solana.png',
+                image: 'assets/images/binance.png',
                 title: 'Start Your Trading Journey',
                 subtitle:
                     'Trade across multiple markets with the most stable and reliable pricing',

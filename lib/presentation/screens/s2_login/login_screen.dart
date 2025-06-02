@@ -30,7 +30,8 @@ class LoginScreen extends StatelessWidget {
                 minimumSize: Size(double.infinity, 50),
               ),
               onPressed: () {
-                if (_usernameController.text.isNotEmpty && _passwordController.text.isNotEmpty) {
+                if (_usernameController.text.isNotEmpty &&
+                    _passwordController.text.isNotEmpty) {
                   Navigator.pushNamed(context, '/home');
                 } else {
                   ScaffoldMessenger.of(context).showSnackBar(
