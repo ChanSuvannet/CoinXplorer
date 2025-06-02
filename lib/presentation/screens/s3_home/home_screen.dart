@@ -1,48 +1,96 @@
+import 'package:coinxplorer/core/constants/colors.dart';
 import 'package:flutter/material.dart';
 
+// Pages
+import 'a1_market/market_page.dart';
+import 'a2_news/news_page.dart';
+import 'a3_search/search_page.dart';
+import 'a4_portfolio/portfolio_page.dart';
+import 'a5_community/community_page.dart';
+
 class HomeScreen extends StatefulWidget {
+  const HomeScreen({super.key});
+
   @override
-  _HomeScreenState createState() => _HomeScreenState();
+  State<HomeScreen> createState() => _HomeScreenState();
 }
 
 class _HomeScreenState extends State<HomeScreen> {
   int _selectedIndex = 0;
 
-  static List<Widget> _pages = <Widget>[
-    Center(child: Text('Home Page', style: TextStyle(fontSize: 24))),
-    Center(child: Text('Markets Page', style: TextStyle(fontSize: 24))),
-    Center(child: Text('Profile Page', style: TextStyle(fontSize: 24))),
+  final List<Widget> _pages = const [
+    MarketPage(),
+    NewsPage(),
+    SearchPage(),
+    PortfolioPage(),
+    CommunityPage(),
   ];
 
   void _onItemTapped(int index) {
-    setState(() {
-      _selectedIndex = index;
-    });
+    setState(() => _selectedIndex = index);
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: Text('Home')),
-      body: _pages[_selectedIndex],
-      bottomNavigationBar: BottomNavigationBar(
-        items: const <BottomNavigationBarItem>[
-          BottomNavigationBarItem(
-            icon: Icon(Icons.home),
-            label: 'Home',
+      backgroundColor: AppColors.backgroundLight,
+      body: SafeArea(child: _pages[_selectedIndex]),
+      bottomNavigationBar: Container(
+        decoration: BoxDecoration(
+          boxShadow: [
+            BoxShadow(
+              color: Colors.black.withOpacity(0.07),
+              blurRadius: 12,
+              offset: const Offset(0, -3),
+            ),
+          ],
+        ),
+        child: ClipRRect(
+          borderRadius: const BorderRadius.only(
+            topLeft: Radius.circular(0),
+            topRight: Radius.circular(0),
           ),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.trending_up),
-            label: 'Markets',
+          child: BottomNavigationBar(
+            type: BottomNavigationBarType.fixed,
+            currentIndex: _selectedIndex,
+            onTap: _onItemTapped,
+            selectedItemColor: AppColors.textDark,
+            unselectedItemColor: AppColors.textSecondary,
+            backgroundColor: Colors.white,
+            elevation: 0,
+            showUnselectedLabels: true,
+            selectedLabelStyle: const TextStyle(
+              fontWeight: FontWeight.w600,
+              fontSize: 12,
+            ),
+            unselectedLabelStyle: const TextStyle(
+              fontWeight: FontWeight.w400,
+              fontSize: 12,
+            ),
+            items: const [
+              BottomNavigationBarItem(
+                icon: Icon(Icons.show_chart),
+                label: 'Market',
+              ),
+              BottomNavigationBarItem(
+                icon: Icon(Icons.article_outlined),
+                label: 'News',
+              ),
+              BottomNavigationBarItem(
+                icon: Icon(Icons.search),
+                label: 'Search',
+              ),
+              BottomNavigationBarItem(
+                icon: Icon(Icons.pie_chart_outline),
+                label: 'Portfolio',
+              ),
+              BottomNavigationBarItem(
+                icon: Icon(Icons.people_outline),
+                label: 'Community',
+              ),
+            ],
           ),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.person),
-            label: 'Profile',
-          ),
-        ],
-        currentIndex: _selectedIndex,
-        selectedItemColor: Colors.black,
-        onTap: _onItemTapped,
+        ),
       ),
     );
   }

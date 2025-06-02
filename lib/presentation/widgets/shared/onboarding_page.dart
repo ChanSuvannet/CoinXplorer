@@ -1,5 +1,6 @@
 import 'package:coinxplorer/core/constants/colors.dart';
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 
 class OnboardingPage extends StatelessWidget {
   final String image;
@@ -40,13 +41,17 @@ class OnboardingPage extends StatelessWidget {
             textAlign: TextAlign.center,
           ),
           SizedBox(height: 10),
-          Text(
-            subtitle,
-            style: TextStyle(
-              fontSize: 16,
-              color: const Color.fromARGB(255, 33, 33, 33),
+          Padding(
+            padding: const EdgeInsets.fromLTRB(20, 0, 20, 0),
+            child: Text(
+              subtitle,
+              style: TextStyle(
+                fontSize: 18,
+                fontFamily: GoogleFonts.lato().fontFamily,
+                color: const Color.fromARGB(255, 33, 33, 33),
+              ),
+              textAlign: TextAlign.center,
             ),
-            textAlign: TextAlign.center,
           ),
         ],
       ),
