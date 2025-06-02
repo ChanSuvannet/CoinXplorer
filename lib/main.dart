@@ -17,7 +17,7 @@ class MyApp extends StatelessWidget {
         primarySwatch: Colors.blue,
         visualDensity: VisualDensity.adaptivePlatformDensity,
       ),
-      initialRoute: '/welcomes',
+      initialRoute: '/welcome',
       onGenerateRoute: RouteGenerator.generateRoute,
     );
   }
