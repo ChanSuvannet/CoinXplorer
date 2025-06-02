@@ -102,7 +102,7 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
                       backgroundColor: Colors.black,
                       minimumSize: Size(266, 60),
                       shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(17.6),
+                        borderRadius: BorderRadius.circular(AppStyles.borderRadius),
                       ),
                     ),
                     onPressed: () {

@@ -3,7 +3,6 @@ import 'package:flutter/material.dart';
 /// A centralized class to manage all app-wide color constants.
 /// Inspired by CoinMarketCap's theme with a focus on dark mode UI and clean visual hierarchy.
 class AppColors {
-  
   // === Brand Colors ===
   /// Primary accent color (e.g., used to indicate positive trends or success).
   static const Color primary = Color(0xFF00C853); // Bright green
@@ -49,5 +48,29 @@ class AppColors {
 
   /// Used for neutral or disabled UI elements.
   static const Color disabled = Color(0xFF9E9E9E);
-  
+}
+
+class AppStyles {
+  // === Styling Constants ===
+
+  /// Default padding for screens and containers.
+  static const double padding = 24.0;
+
+  /// Default spacing between UI elements.
+  static const double spacing = 16.0;
+
+  /// Standard height for buttons.
+  static const double buttonHeight = 50.0;
+
+  /// Standard border radius for buttons, cards, and containers.
+  static const double borderRadius = 16.0;
+
+  /// Standard size for icons.
+  static const double iconSize = 24.0;
+
+  /// Font size for labels and primary text.
+  static const double fontSizeLabel = 16.0;
+
+  /// Font size for secondary text, such as links.
+  static const double fontSizeLink = 14.0;
 }
