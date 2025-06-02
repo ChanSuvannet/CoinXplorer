@@ -13,7 +13,7 @@ class AppColors {
 
   // === Background Colors ===
   /// Default dark mode background.
-  static const Color backgroundDark = Color.fromARGB(255, 42, 42, 42);
+  static const Color backgroundDark = Color(0xFF1A1A1D);
 
   /// Default light mode background.
   static const Color backgroundLight = Colors.white;
@@ -31,7 +31,7 @@ class AppColors {
   static const Color textTertiary = Color(0xFF888888);
 
   /// Text color on light backgrounds (e.g., cards in light theme).
-  static const Color textDark = Colors.black87;
+  static const Color textDark = Color(0xFF1A1A1D);
 
   // === Border and Divider ===
   /// Divider or card border color in dark mode.
