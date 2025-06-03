@@ -73,4 +73,10 @@ class AppStyles {
 
   /// Font size for secondary text, such as links.
   static const double fontSizeLink = 14.0;
+
+  // fontSizeButton
+  static const double fontSizeButton = 16.0;
+
+  // AppBar Padding from the top
+  static const double appBarPaddingTop = 22.0;
 }
