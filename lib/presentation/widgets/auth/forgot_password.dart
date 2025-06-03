@@ -62,6 +62,7 @@ class _ForgotPasswordScreenState extends State<ForgotPassword> {
         '/verify-otp',
         arguments: {'phone': phone, 'countryCode': _selectedCountryCode},
       );
+    // ignore: dead_code
     } else {
       _showSnackBar('Failed to send OTP');
     }
