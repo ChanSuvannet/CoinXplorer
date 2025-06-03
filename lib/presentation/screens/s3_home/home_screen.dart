@@ -85,7 +85,7 @@ class _HomeScreenState extends State<HomeScreen> {
                 label: 'Portfolio',
               ),
               BottomNavigationBarItem(
-                icon: Icon(Icons.people_outline),
+                icon: Icon(Icons.chat_bubble_outline),
                 label: 'Community',
               ),
             ],

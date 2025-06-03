@@ -3,47 +3,51 @@ import 'package:flutter/material.dart';
 
 import '../../../core/theme/custom_app_bar.dart';
 
-class LoginScreen extends StatefulWidget {
-  const LoginScreen({super.key});
+class SignUp extends StatefulWidget {
+  const SignUp({super.key});
 
   @override
-  State<LoginScreen> createState() => _LoginScreenState();
+  State<SignUp> createState() => _SignUpScreenState();
 }
 
-class _LoginScreenState extends State<LoginScreen> {
+class _SignUpScreenState extends State<SignUp> {
   final TextEditingController _phoneController = TextEditingController();
+  final TextEditingController _emailController = TextEditingController();
   final TextEditingController _passwordController = TextEditingController();
+  final TextEditingController _confirmPasswordController =
+      TextEditingController();
+
   bool _obscurePassword = true;
+  bool _obscureConfirmPassword = true;
   bool _isLoading = false;
   String _selectedCountryCode = '+855';
 
-  // List of country codes (simplified for example)
   final List<String> _countryCodes = const ['+855', '+1', '+44', '+91'];
-
-  @override
-  void initState() {
-    super.initState();
-    _phoneController.text = '8895669292'; // Default phone number
-  }
 
   @override
   void dispose() {
     _phoneController.dispose();
+    _emailController.dispose();
     _passwordController.dispose();
+    _confirmPasswordController.dispose();
     super.dispose();
   }
 
-  // Basic phone number validation
   bool _validatePhoneNumber(String phone) {
     return phone.length >= 8 && RegExp(r'^\d+$').hasMatch(phone);
   }
 
-  // Handle login button press
-  Future<void> _handleLogin() async {
+  bool _validateEmail(String email) {
+    return RegExp(r'^[^@]+@[^@]+\.[^@]+').hasMatch(email);
+  }
+
+  Future<void> _handleSignUp() async {
     if (_isLoading) return;
 
     final phone = _phoneController.text.trim();
+    final email = _emailController.text.trim();
     final password = _passwordController.text.trim();
+    final confirmPassword = _confirmPasswordController.text.trim();
 
     if (!_validatePhoneNumber(phone)) {
       ScaffoldMessenger.of(context).showSnackBar(
@@ -51,11 +55,22 @@ class _LoginScreenState extends State<LoginScreen> {
       );
       return;
     }
-
-    if (password.isEmpty) {
+    if (!_validateEmail(email)) {
       ScaffoldMessenger.of(context).showSnackBar(
-        const SnackBar(content: Text('Please enter your password')),
+        const SnackBar(content: Text('Please enter a valid email')),
       );
+      return;
+    }
+    if (password.length < 6) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(content: Text('Password must be at least 6 characters')),
+      );
+      return;
+    }
+    if (password != confirmPassword) {
+      ScaffoldMessenger.of(
+        context,
+      ).showSnackBar(const SnackBar(content: Text('Passwords do not match')));
       return;
     }
 
@@ -63,14 +78,18 @@ class _LoginScreenState extends State<LoginScreen> {
       _isLoading = true;
     });
 
-    // Simulate a login request (replace with actual API call)
+    // Simulate sign up delay, replace with your actual API call
     await Future.delayed(const Duration(seconds: 2));
 
     setState(() {
       _isLoading = false;
     });
 
+    // Navigate or show success message here
     if (mounted) {
+      ScaffoldMessenger.of(
+        context,
+      ).showSnackBar(const SnackBar(content: Text('Sign up successful!')));
       Navigator.pushNamed(context, '/home');
     }
   }
@@ -80,7 +99,7 @@ class _LoginScreenState extends State<LoginScreen> {
     return Scaffold(
       backgroundColor: AppColors.backgroundLight,
       appBar: const CustomAppBar(
-        title: 'Sing In',
+        title: 'Sign Up',
         showBackButton: false,
         centerTitle: true,
       ),
@@ -89,11 +108,10 @@ class _LoginScreenState extends State<LoginScreen> {
           horizontal: AppStyles.padding,
           vertical: AppStyles.spacing,
         ),
-
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            SizedBox(height: 120),
+            SizedBox(height: 0),
             const Text(
               'Enter your mobile number',
               style: TextStyle(
@@ -172,6 +190,35 @@ class _LoginScreenState extends State<LoginScreen> {
             ),
             const SizedBox(height: AppStyles.spacing * 1.5),
             const Text(
+              'Enter your email',
+              style: TextStyle(
+                fontSize: AppStyles.fontSizeLabel,
+                color: AppColors.textDark,
+                fontWeight: FontWeight.w500,
+              ),
+            ),
+            const SizedBox(height: 10),
+            TextField(
+              controller: _emailController,
+              keyboardType: TextInputType.emailAddress,
+              decoration: InputDecoration(
+                hintText: 'Email',
+                border: OutlineInputBorder(
+                  borderRadius: BorderRadius.circular(AppStyles.borderRadius),
+                  borderSide: BorderSide(color: Colors.grey.shade300),
+                ),
+                enabledBorder: OutlineInputBorder(
+                  borderRadius: BorderRadius.circular(AppStyles.borderRadius),
+                  borderSide: BorderSide(color: Colors.grey.shade300),
+                ),
+                focusedBorder: OutlineInputBorder(
+                  borderRadius: BorderRadius.circular(AppStyles.borderRadius),
+                  borderSide: const BorderSide(color: Colors.black),
+                ),
+              ),
+            ),
+            const SizedBox(height: AppStyles.spacing * 1.5),
+            const Text(
               'Enter your password',
               style: TextStyle(
                 fontSize: AppStyles.fontSizeLabel,
@@ -211,25 +258,50 @@ class _LoginScreenState extends State<LoginScreen> {
                 ),
               ),
             ),
-            const SizedBox(height: 8),
-            Align(
-              alignment: Alignment.centerRight,
-              child: GestureDetector(
-                onTap: () {
-                  // Navigate to forgot password screen
-                  Navigator.pushNamed(context, '/forgot-password');
-                },
-                child: const Text(
-                  'forgot password?',
-                  style: TextStyle(
-                    fontSize: AppStyles.fontSizeLink,
-                    color: Colors.black54,
-                    fontWeight: FontWeight.w400,
+            const SizedBox(height: AppStyles.spacing * 1.5),
+            const Text(
+              'Confirm your password',
+              style: TextStyle(
+                fontSize: AppStyles.fontSizeLabel,
+                color: AppColors.textDark,
+                fontWeight: FontWeight.w500,
+              ),
+            ),
+            const SizedBox(height: 10),
+            TextField(
+              controller: _confirmPasswordController,
+              obscureText: _obscureConfirmPassword,
+              decoration: InputDecoration(
+                hintText: 'Confirm Password',
+                border: OutlineInputBorder(
+                  borderRadius: BorderRadius.circular(AppStyles.borderRadius),
+                  borderSide: BorderSide(color: Colors.grey.shade300),
+                ),
+                enabledBorder: OutlineInputBorder(
+                  borderRadius: BorderRadius.circular(AppStyles.borderRadius),
+                  borderSide: BorderSide(color: Colors.grey.shade300),
+                ),
+                focusedBorder: OutlineInputBorder(
+                  borderRadius: BorderRadius.circular(AppStyles.borderRadius),
+                  borderSide: const BorderSide(color: Colors.black),
+                ),
+                suffixIcon: IconButton(
+                  icon: Icon(
+                    _obscureConfirmPassword
+                        ? Icons.visibility_off
+                        : Icons.visibility,
+                    color: Colors.grey,
+                    size: AppStyles.iconSize,
                   ),
+                  onPressed: () {
+                    setState(() {
+                      _obscureConfirmPassword = !_obscureConfirmPassword;
+                    });
+                  },
                 ),
               ),
             ),
-            const SizedBox(height: AppStyles.spacing * 1.5),
+            const SizedBox(height: AppStyles.spacing * 2),
             ElevatedButton(
               style: ElevatedButton.styleFrom(
                 backgroundColor: Colors.black,
@@ -241,7 +313,7 @@ class _LoginScreenState extends State<LoginScreen> {
                   borderRadius: BorderRadius.circular(AppStyles.borderRadius),
                 ),
               ),
-              onPressed: _isLoading ? null : _handleLogin,
+              onPressed: _isLoading ? null : _handleSignUp,
               child:
                   _isLoading
                       ? const SizedBox(
@@ -253,22 +325,22 @@ class _LoginScreenState extends State<LoginScreen> {
                         ),
                       )
                       : const Text(
-                        'Sing In',
+                        'Sign Up',
                         style: TextStyle(
-                          fontSize: AppStyles.fontSizeLabel,
+                          fontWeight: FontWeight.bold,
                           color: AppColors.textPrimary,
-                          fontWeight: FontWeight.w600,
+                          fontSize: AppStyles.fontSizeButton,
                         ),
                       ),
             ),
-            const SizedBox(height: AppStyles.spacing),
+            const SizedBox(height: 20),
             Center(
               child: GestureDetector(
                 onTap: () {
-                  Navigator.pushNamed(context, '/signup');
+                  Navigator.pushNamed(context, '/login');
                 },
                 child: const Text(
-                  "Don't have an account? Sign Up",
+                  "Already have an account? Log in",
                   style: TextStyle(
                     fontSize: AppStyles.fontSizeLink,
                     color: Colors.black54,
@@ -277,7 +349,16 @@ class _LoginScreenState extends State<LoginScreen> {
                 ),
               ),
             ),
-            const SizedBox(height: AppStyles.spacing * 1.5),
+            Center(
+              child: Text(
+                'or',
+                style: TextStyle(
+                  fontSize: AppStyles.fontSizeLink,
+                  color: Colors.grey.shade500,
+                ),
+              ),
+            ),
+            const SizedBox(height: 10),
             OutlinedButton.icon(
               onPressed: () {
                 // Implement Google login
@@ -336,31 +417,6 @@ class _LoginScreenState extends State<LoginScreen> {
               ),
             ),
             const SizedBox(height: AppStyles.spacing),
-            Center(
-              child: Text(
-                'or',
-                style: TextStyle(
-                  fontSize: AppStyles.fontSizeLink,
-                  color: Colors.grey.shade500,
-                ),
-              ),
-            ),
-            const SizedBox(height: AppStyles.spacing),
-            Center(
-              child: GestureDetector(
-                onTap: () {
-                  Navigator.pushNamed(context, '/home');
-                },
-                child: const Text(
-                  'Continue as Guest',
-                  style: TextStyle(
-                    fontSize: AppStyles.fontSizeLink,
-                    color: Colors.black54,
-                    fontWeight: FontWeight.w400,
-                  ),
-                ),
-              ),
-            ),
           ],
         ),
       ),
