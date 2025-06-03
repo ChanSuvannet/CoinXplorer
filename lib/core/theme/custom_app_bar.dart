@@ -16,23 +16,15 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
 
   @override
   Widget build(BuildContext context) {
-    return AppBar(
-      title: Padding(
-        
-        padding: const EdgeInsets.only(top: AppStyles.appBarPaddingTop),
-        child: Text(
-          title,
-          style: const TextStyle(
-            fontSize: 30,
-            fontWeight: FontWeight.bold,
-            color: Colors.black,
-          ),
-        ),
+    return Padding(
+      padding: const EdgeInsets.symmetric(vertical: 15.0),
+      child: AppBar(
+        title: Text(title, style: const TextStyle(fontWeight: FontWeight.bold)),
+        centerTitle: centerTitle,
+        automaticallyImplyLeading: showBackButton,
+        backgroundColor: AppColors.backgroundLight,
+        elevation: 0,
       ),
-      centerTitle: centerTitle,
-      automaticallyImplyLeading: showBackButton,
-      backgroundColor: AppColors.backgroundLight,
-      elevation: 0,
     );
   }
 

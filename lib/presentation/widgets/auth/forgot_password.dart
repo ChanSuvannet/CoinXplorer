@@ -42,12 +42,28 @@ class _ForgotPasswordScreenState extends State<ForgotPassword> {
     }
 
     setState(() => _isLoading = true);
-    await Future.delayed(const Duration(seconds: 2));
+
+    // Simulate static data response for OTP request
+    await Future.delayed(
+      const Duration(seconds: 2),
+    ); // Simulate processing delay
+    const bool isSuccess = true; // Static success flag
+    const String mockMessage =
+        'OTP sent successfully!'; // Static response message
+
     setState(() => _isLoading = false);
 
-    if (mounted) {
-      _showSnackBar('OTP sent successfully!');
-      Navigator.pushNamed(context, '/home');
+    if (!mounted) return;
+
+    if (isSuccess) {
+      _showSnackBar(mockMessage);
+      Navigator.pushNamed(
+        context,
+        '/verify-otp',
+        arguments: {'phone': phone, 'countryCode': _selectedCountryCode},
+      );
+    } else {
+      _showSnackBar('Failed to send OTP');
     }
   }
 
@@ -72,7 +88,6 @@ class _ForgotPasswordScreenState extends State<ForgotPassword> {
           vertical: AppStyles.spacing,
         ),
         child: Column(
-          
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             const SizedBox(height: AppStyles.spacing),
@@ -85,6 +100,29 @@ class _ForgotPasswordScreenState extends State<ForgotPassword> {
               ),
             ),
             const SizedBox(height: AppStyles.spacing),
+            Center(
+              child: Text(
+                'Forgot Password?',
+                style: TextStyle(
+                  fontSize: 28.32,
+                  fontFamily: 'ExtraBold',
+                  fontWeight: FontWeight.w900,
+                  color: AppColors.textDark,
+                ),
+              ),
+            ),
+            const SizedBox(height: AppStyles.spacing),
+            Center(
+              child: Text(
+                'Don’t worry! it happens. Please enter phone number associated with your account',
+                style: TextStyle(
+                  fontSize: AppStyles.fontSizeLink,
+                  color: AppColors.textTertiary,
+                ),
+                textAlign: TextAlign.center,
+              ),
+            ),
+            const SizedBox(height: AppStyles.spacing * 4),
             const Text(
               'Enter your mobile number',
               style: TextStyle(

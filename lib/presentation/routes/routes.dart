@@ -8,6 +8,7 @@ import 'package:coinxplorer/presentation/widgets/shared/page_not_found_screen.da
 import 'package:flutter/material.dart';
 
 import '../widgets/auth/forgot_password.dart';
+import '../widgets/auth/verify_otp.dart';
 
 class RouteGenerator {
   static Route<dynamic> generateRoute(RouteSettings settings) {
@@ -27,6 +28,9 @@ class RouteGenerator {
       case RoutePaths.forgotPassword:
         return MaterialPageRoute(builder: (_) => const ForgotPassword());
 
+      case RoutePaths.verify:
+        return MaterialPageRoute(builder: (_) => const VerifyOtp());
+
       default:
         return MaterialPageRoute(builder: (_) => const PageNotFoundScreen());
     }
@@ -41,7 +45,7 @@ class RoutePaths {
   static const String login = '/login';
   static const String signup = '/signup';
   static const String forgotPassword = '/forgot-password';
+  static const String verify = '/verify-otp';
   // for s3
   static const String home = '/home';
-
 }

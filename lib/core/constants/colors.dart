@@ -78,5 +78,5 @@ class AppStyles {
   static const double fontSizeButton = 16.0;
 
   // AppBar Padding from the top
-  static const double appBarPaddingTop = 22.0;
+  static const double appBarPaddingTop = 30.0;
 }
