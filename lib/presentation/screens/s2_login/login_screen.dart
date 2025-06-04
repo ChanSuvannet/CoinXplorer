@@ -80,7 +80,7 @@ class _LoginScreenState extends State<LoginScreen> {
     return Scaffold(
       backgroundColor: AppColors.backgroundLight,
       appBar: const CustomAppBar(
-        title: 'Sing In',
+        title: 'Login',
         showBackButton: false,
         centerTitle: true,
       ),
@@ -253,7 +253,7 @@ class _LoginScreenState extends State<LoginScreen> {
                         ),
                       )
                       : const Text(
-                        'Sing In',
+                        'Sign In',
                         style: TextStyle(
                           fontSize: AppStyles.fontSizeLabel,
                           color: AppColors.textPrimary,
