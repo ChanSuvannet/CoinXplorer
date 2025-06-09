@@ -221,10 +221,10 @@ class _CommunityPageState extends State<CommunityPage> {
           'Community',
           style: TextStyle(fontWeight: FontWeight.bold),
         ),
-        actions: const [
-          Icon(Icons.diamond_outlined, color: Colors.blue),
+        actions:[
+          SvgPicture.asset('assets/icons/diamond.svg', height: 20, width: 20),
           SizedBox(width: 20),
-          Icon(Icons.search, color: Colors.grey),
+          SvgPicture.asset('assets/icons/search.svg', height: 20, width: 20),
           SizedBox(width: 16),
           CircleAvatar(
             radius: 15,
