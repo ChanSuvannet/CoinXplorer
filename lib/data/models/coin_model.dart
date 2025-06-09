@@ -1,24 +1,28 @@
-// coin_model.dart
-
-class CoinModel {
-  final String id;
-  final String name;
+class Coin {
+  final int rank;
   final String symbol;
-  final double currentPrice;
+  final String image;
+  final double price;
+  final double change;
+  final double marketCap;
 
-  CoinModel({
-    required this.id,
-    required this.name,
+  Coin({
+    required this.rank,
     required this.symbol,
-    required this.currentPrice,
+    required this.image,
+    required this.price,
+    required this.change,
+    required this.marketCap,
   });
 
-  factory CoinModel.fromJson(Map<String, dynamic> json) {
-    return CoinModel(
-      id: json['id'],
-      name: json['name'],
-      symbol: json['symbol'],
-      currentPrice: json['current_price'].toDouble(),
+  factory Coin.fromJson(Map<String, dynamic> json) {
+    return Coin(
+      rank: json['market_cap_rank'] ?? 0,
+      symbol: (json['symbol'] ?? '').toUpperCase(),
+      image: json['image'] ?? '',
+      price: (json['current_price'] ?? 0).toDouble(),
+      change: (json['price_change_percentage_1h'] ?? 0).toDouble(),
+      marketCap: (json['market_cap'] ?? 0).toDouble(),
     );
   }
 }
