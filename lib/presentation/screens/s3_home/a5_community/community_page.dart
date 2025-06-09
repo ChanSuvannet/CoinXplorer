@@ -1,4 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/svg.dart';
+
+void main() => runApp(const MaterialApp(home: CommunityPage()));
 
 class CommunityPage extends StatefulWidget {
   const CommunityPage({super.key});
@@ -70,19 +73,51 @@ class _CommunityPageState extends State<CommunityPage> {
 
   Widget buildPost(Post post) {
     return Padding(
-      padding: const EdgeInsets.symmetric(vertical: 10, horizontal: 16),
-      child: Column(
+      padding: const EdgeInsets.symmetric(vertical: 12, horizontal: 16),
+      child: Row(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Row(
+          // Avatar and vertical line
+          Column(
             children: [
               CircleAvatar(
                 backgroundImage: AssetImage(post.avatar),
                 radius: 20,
               ),
-              const SizedBox(width: 10),
-              Expanded(
-                child: Row(
+              if (['1', '2', '3'].contains(post.id))
+                Container(
+                  width: 2,
+                  height: 80,
+                  margin: const EdgeInsets.only(top: 6),
+                  color: Colors.grey.shade300,
+                ),
+              const SizedBox(height: 6),
+              // Replies display
+              if (post.id == '2')
+                Row(
+                  children: const [
+                    CircleAvatar(
+                      radius: 10,
+                      backgroundImage: AssetImage('assets/images/man.png'),
+                    ),
+                    SizedBox(width: 4),
+                    CircleAvatar(
+                      radius: 10,
+                      backgroundImage: AssetImage('assets/images/women.png'),
+                    ),
+                    SizedBox(width: 6),
+                  ],
+                ),
+            ],
+          ),
+          const SizedBox(width: 12),
+          // Post content
+          Expanded(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                // Name + Time + Actions
+                Row(
                   children: [
                     Text(
                       post.name,
@@ -90,59 +125,83 @@ class _CommunityPageState extends State<CommunityPage> {
                     ),
                     if (post.isVerified)
                       const Padding(
-                        padding: EdgeInsets.only(left: 5),
+                        padding: EdgeInsets.only(left: 4),
                         child: Icon(
                           Icons.verified,
-                          color: Colors.blue,
                           size: 16,
+                          color: Colors.blue,
                         ),
                       ),
                     const Spacer(),
-                    Text(post.time, style: const TextStyle(color: Colors.grey)),
-                    const SizedBox(width: 5),
-                    const Icon(Icons.more_horiz),
+                    Text(
+                      post.time,
+                      style: const TextStyle(color: Colors.grey, fontSize: 12),
+                    ),
+                    const SizedBox(width: 8),
+                    const Icon(Icons.more_horiz, size: 18),
                   ],
                 ),
-              ),
-            ],
-          ),
-          const SizedBox(height: 8),
-          Text(post.content),
-          if (post.imagePaths != null && post.imagePaths!.isNotEmpty)
-            Container(
-              margin: const EdgeInsets.only(top: 10),
-              height: 160,
-              child: ListView.separated(
-                scrollDirection: Axis.horizontal,
-                itemCount: post.imagePaths!.length,
-                separatorBuilder: (_, __) => const SizedBox(width: 10),
-                itemBuilder:
-                    (context, index) => ClipRRect(
-                      borderRadius: BorderRadius.circular(12),
-                      child: Image.asset(
-                        post.imagePaths![index],
-                        width: 200,
-                        fit: BoxFit.cover,
-                      ),
+                const SizedBox(height: 6),
+                // Post text
+                Text(post.content),
+                // Images
+                if (post.imagePaths != null && post.imagePaths!.isNotEmpty)
+                  Container(
+                    margin: const EdgeInsets.only(top: 10),
+                    height: 160,
+                    child: ListView.separated(
+                      scrollDirection: Axis.horizontal,
+                      itemCount: post.imagePaths!.length,
+                      separatorBuilder: (_, __) => const SizedBox(width: 10),
+                      itemBuilder:
+                          (context, index) => ClipRRect(
+                            borderRadius: BorderRadius.circular(12),
+                            child: Image.asset(
+                              post.imagePaths![index],
+                              width: 200,
+                              fit: BoxFit.cover,
+                            ),
+                          ),
                     ),
-              ),
+                  ),
+                const SizedBox(height: 10),
+                // Action icons
+                Row(
+                  children: [
+                    SvgPicture.asset(
+                      'assets/icons/heart.svg',
+                      height: 20,
+                      width: 20,
+                    ),
+                    const SizedBox(width: 12),
+                    SvgPicture.asset(
+                      'assets/icons/comment.svg',
+                      height: 20,
+                      width: 20,
+                    ),
+                    const SizedBox(width: 12),
+                    SvgPicture.asset(
+                      'assets/icons/retweet.svg',
+                      height: 20,
+                      width: 20,
+                    ),
+                    const SizedBox(width: 12),
+                    SvgPicture.asset(
+                      'assets/icons/share.svg',
+                      height: 20,
+                      width: 20,
+                    ),
+                  ],
+                ),
+                const SizedBox(height: 8),
+                if (post.id == '2' || post.id == '1' || post.id == '3')
+                  Text(
+                    '${post.replies} replies • ${post.likes} likes',
+                    style: const TextStyle(color: Colors.grey, fontSize: 12),
+                  ),
+              ],
             ),
-          const SizedBox(height: 10),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceAround,
-            children: const [
-              Icon(Icons.favorite_border),
-              Icon(Icons.chat_bubble_outline),
-              Icon(Icons.repeat),
-              Icon(Icons.send),
-            ],
           ),
-          const SizedBox(height: 6),
-          Text(
-            '${post.replies} replies • ${post.likes} likes',
-            style: const TextStyle(color: Colors.grey),
-          ),
-          const Divider(height: 20),
         ],
       ),
     );
@@ -151,7 +210,12 @@ class _CommunityPageState extends State<CommunityPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Colors.white,
       appBar: AppBar(
+        surfaceTintColor: Colors.white,
+        backgroundColor: Colors.white,
+        scrolledUnderElevation: 0,
+        elevation: 0,
         automaticallyImplyLeading: false,
         title: const Text(
           'Community',
@@ -171,6 +235,7 @@ class _CommunityPageState extends State<CommunityPage> {
       ),
       body: Column(
         children: [
+          // Tab bar
           Row(
             children:
                 ['for-you', 'following'].map((tab) {
@@ -184,6 +249,10 @@ class _CommunityPageState extends State<CommunityPage> {
                             tab == 'for-you' ? 'For you' : 'Following',
                             style: TextStyle(
                               color: isActive ? Colors.black : Colors.grey,
+                              fontWeight:
+                                  isActive
+                                      ? FontWeight.w600
+                                      : FontWeight.normal,
                             ),
                           ),
                           if (isActive)
@@ -200,6 +269,7 @@ class _CommunityPageState extends State<CommunityPage> {
                 }).toList(),
           ),
           const Divider(height: 1),
+          // Feed
           Expanded(
             child:
                 activeTab == 'for-you'
