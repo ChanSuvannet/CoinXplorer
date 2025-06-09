@@ -50,42 +50,54 @@ class _MarketPageState extends State<MarketPage> with TickerProviderStateMixin {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: SharedAppBar(title: 'Market', showBackButton: false),
-      body: Container(
-        color: AppColors.backgroundLight,
-        child: Column(
-          children: [
-            // Summary Cards
-            const SummaryCard(),
-            // Tab Bar
-            TabBar(
-              controller: _tabController,
-              isScrollable: true,
-              labelColor: Colors.black,
-              indicatorColor: AppColors.textDark,
-              tabs: const [
-                Tab(text: 'Coins'),
-                Tab(text: 'WatchList'),
-                Tab(text: 'Dexscan'),
-                Tab(text: 'Earn'),
-                Tab(text: 'Chains'),
-              ],
-            ),
-            // TabBar View
-            Expanded(
-              child: TabBarView(
-                controller: _tabController,
-                children: [
-                  isLoading
-                      ? const Center(child: CircularProgressIndicator())
-                      : CoinListTab(coins: coins),
-                  const Center(child: Text('WatchList Tab Coming Soon')),
-                  const Center(child: Text('Dexscan Tab Coming Soon')),
-                  const Center(child: Text('Earn Tab Coming Soon')),
-                  const Center(child: Text('Chains Tab Coming Soon')),
-                ],
+      body: SafeArea(
+        child: Container(
+          color: AppColors.backgroundLight,
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              const SummaryCard(),
+
+              Padding(
+                padding: const EdgeInsets.only(left: 0.0),
+                child: Align(
+                  alignment: Alignment.centerLeft,
+                  child: TabBar(
+                    controller: _tabController,
+                    isScrollable: true,
+                    labelColor: Colors.black,
+                    unselectedLabelColor: Colors.grey,
+                    indicatorColor: AppColors.textDark,
+                    labelStyle: const TextStyle(fontWeight: FontWeight.bold),
+                    tabs: const [
+                      Tab(text: 'Coins'),
+                      Tab(text: 'WatchList'),
+                      Tab(text: 'Dexscan'),
+                      Tab(text: 'Earn'),
+                      Tab(text: 'Chains'),
+                    ],
+                  ),
+                ),
               ),
-            ),
-          ],
+
+              const SizedBox(height: 10),
+
+              Expanded(
+                child: TabBarView(
+                  controller: _tabController,
+                  children: [
+                    isLoading
+                        ? const Center(child: CircularProgressIndicator())
+                        : CoinListTab(coins: coins),
+                    const Center(child: Text('WatchList Tab Coming Soon')),
+                    const Center(child: Text('Dexscan Tab Coming Soon')),
+                    const Center(child: Text('Earn Tab Coming Soon')),
+                    const Center(child: Text('Chains Tab Coming Soon')),
+                  ],
+                ),
+              ),
+            ],
+          ),
         ),
       ),
     );
