@@ -21,13 +21,13 @@ const List<News> newsList = [
   News(
     title: 'Flutter 3.0 Released',
     description: 'Google announces the latest version of Flutter with new features and improvements.',
-    imageUrl: 'https://picsum.photos/id/1/500/300',
+    imageUrl: 'https://picsum.photos/id/3/500/300',
     date: 'May 12, 2023',
   ),
   News(
     title: 'Dart 3.0 Brings Major Updates',
     description: 'The new version of Dart introduces pattern matching and other powerful features.',
-    imageUrl: 'https://picsum.photos/id/2/500/300',
+    imageUrl: 'https://picsum.photos/id/3/500/300',
     date: 'May 10, 2023',
   ),
   News(
@@ -88,7 +88,9 @@ class _RecommendedPageState extends State<RecommendedPage> {
   }
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(
+    BuildContext context,
+    ) {
     return Column(
       children: [
         // Billboard/Slider Section
