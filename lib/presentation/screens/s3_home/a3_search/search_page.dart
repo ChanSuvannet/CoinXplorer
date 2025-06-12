@@ -1,25 +1,39 @@
+import 'package:coinxplorer/core/constants/colors.dart';
 import 'package:flutter/material.dart';
 
 class SearchPage extends StatelessWidget {
   const SearchPage({super.key});
 
   Widget buildSearchBar() {
-    return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 16.0),
-      child: TextField(
-        decoration: InputDecoration(
-          filled: true,
-          fillColor: Colors.grey.shade200,
-          prefixIcon: const Icon(Icons.search, color: Colors.grey),
-          hintText: 'Search coins or exchanges...',
-          border: OutlineInputBorder(
-            borderRadius: BorderRadius.circular(24.0),
-            borderSide: BorderSide.none,
+  return Padding(
+    padding: const EdgeInsets.symmetric(horizontal: 16.0),
+    child: Container(
+      decoration: BoxDecoration(
+        color: AppColors.backgroundLight,
+        borderRadius: BorderRadius.circular(24.0),
+        boxShadow: [
+          BoxShadow(
+            color: Colors.black.withOpacity(0.1), // soft shadow
+            blurRadius: 8,
+            offset: Offset(0, 4),
           ),
+        ],
+        border: Border.all(
+          color: Colors.grey.shade200, // darker border
+          width: 1.2,
         ),
       ),
-    );
-  }
+      child: TextField(
+        decoration: InputDecoration(
+          prefixIcon: const Icon(Icons.search, color: Colors.grey),
+          hintText: 'Search coins or exchanges...',
+          border: InputBorder.none,
+          contentPadding: const EdgeInsets.symmetric(vertical: 14),
+        ),
+      ),
+    ),
+  );
+}
 
  Widget buildRecentSearches() {
     return Column(
