@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 
+import 'main_portfolio.dart';
+
 class CreatePortfolioScreen extends StatelessWidget {
   const CreatePortfolioScreen({super.key});
 
@@ -17,7 +19,6 @@ class CreatePortfolioScreen extends StatelessWidget {
         ),
       ),
       body: SingleChildScrollView(
-        // <-- Added this
         child: Padding(
           padding: const EdgeInsets.all(24.0),
           child: Column(
@@ -31,33 +32,47 @@ class CreatePortfolioScreen extends StatelessWidget {
               const SizedBox(height: 32),
               // Wallet Option
               _buildOptionCard(
-                icon: Icons.account_balance_wallet_outlined,
+                imagePath: 'assets/images/wallet.png',
                 title: 'Connect a wallet',
                 description:
                     'Simply enter your wallet address (no signature needed!) and we\'ll sync it right away',
-                onTap:
-                    () => _showSnackBar(context, 'Wallet connection selected'),
+                onTap: () {
+                  // Navigate to portfolio screen with Binance setup
+                  Navigator.pushReplacement(
+                    context,
+                    MaterialPageRoute(builder: (context) => PortfolioScreen()),
+                  );
+                },
               ),
               const SizedBox(height: 16),
               // Manual Option
               _buildOptionCard(
-                icon: Icons.edit_outlined,
+                imagePath: 'assets/images/icon-park-solid_point-out.png',
                 title: 'Add transactions manually',
                 description:
                     'Enter all transaction details at your own pace to track your portfolio',
-                onTap:
-                    () =>
-                        _showSnackBar(context, 'Manual transactions selected'),
+                onTap: () {
+                  // Navigate to portfolio screen with Binance setup
+                  Navigator.pushReplacement(
+                    context,
+                    MaterialPageRoute(builder: (context) => PortfolioScreen()),
+                  );
+                },
               ),
               const SizedBox(height: 16),
               // Binance Option
               _buildOptionCard(
-                icon: Icons.account_balance_outlined,
+                imagePath: 'assets/images/yellow.png',
                 title: 'Connect Binance account',
                 description:
                     'Securely sync assets from your Binance account without using API key.',
-                onTap:
-                    () => _showSnackBar(context, 'Binance connection selected'),
+                onTap: () {
+                  // Navigate to portfolio screen with Binance setup
+                  Navigator.pushReplacement(
+                    context,
+                    MaterialPageRoute(builder: (context) => PortfolioScreen()),
+                  );
+                },
               ),
             ],
           ),
@@ -67,13 +82,13 @@ class CreatePortfolioScreen extends StatelessWidget {
   }
 
   Widget _buildOptionCard({
-    required IconData icon,
+    required String imagePath,
     required String title,
     required String description,
     required VoidCallback onTap,
   }) {
     return Card(
-      elevation: 4, // Added shadow elevation
+      elevation: 4,
       shadowColor: Colors.grey.withOpacity(0.2),
       shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.circular(12),
@@ -88,13 +103,15 @@ class CreatePortfolioScreen extends StatelessWidget {
           child: Row(
             children: [
               Container(
-                width: 48,
-                height: 48,
+                width: 50,
+                height: 50,
                 decoration: BoxDecoration(
                   color: Colors.blue.withOpacity(0.1),
                   shape: BoxShape.circle,
                 ),
-                child: Icon(icon, color: Colors.blue),
+                child: ClipOval(
+                  child: Image.asset(imagePath, width: 10, height: 10),
+                ),
               ),
               const SizedBox(width: 16),
               Expanded(
