@@ -1,4 +1,6 @@
+import 'package:coinxplorer/presentation/screens/s3_home/a4_portfolio/create_portfolio.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/svg.dart';
 
 void main() {
   runApp(const PortfolioPage());
@@ -37,16 +39,21 @@ class PortfolioScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Colors.white,
       appBar: AppBar(
+        surfaceTintColor: Colors.white,
+        backgroundColor: Colors.white,
+        scrolledUnderElevation: 0,
+        elevation: 0,
         automaticallyImplyLeading: false,
         title: const Text(
           'ALL Portfolios',
           style: TextStyle(fontWeight: FontWeight.bold),
         ),
-        actions: const [
-          Icon(Icons.diamond_outlined, color: Colors.blue),
+        actions: [
+          SvgPicture.asset('assets/icons/diamond.svg', height: 20, width: 20),
           SizedBox(width: 20),
-          Icon(Icons.search, color: Colors.grey),
+          SvgPicture.asset('assets/icons/search.svg', height: 20, width: 20),
           SizedBox(width: 16),
           CircleAvatar(
             radius: 15,
@@ -109,8 +116,11 @@ class PortfolioScreen extends StatelessWidget {
             child: ElevatedButton(
               onPressed: () {
                 // Handle add transaction
-                ScaffoldMessenger.of(context).showSnackBar(
-                  const SnackBar(content: Text('Add Transaction pressed')),
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => CreatePortfolioScreen(),
+                  ),
                 );
               },
               style: ElevatedButton.styleFrom(
