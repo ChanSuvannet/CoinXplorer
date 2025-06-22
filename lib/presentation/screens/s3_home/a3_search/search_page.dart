@@ -125,7 +125,7 @@ class SearchPage extends StatelessWidget {
   Widget buildCoinRow({
   required String symbol,
   required String name,
-  required String imageUrl, // <- NEW
+  required String imageUrl,
   required Color color,
   required String price,
   required String marketCap,
@@ -158,12 +158,26 @@ class SearchPage extends StatelessWidget {
         Expanded(flex: 2, child: Text(price, textAlign: TextAlign.right)),
         Expanded(
           flex: 2,
-          child: Text(
-            '${changePercent > 0 ? '+' : ''}${changePercent.toStringAsFixed(2)}%',
-            textAlign: TextAlign.right,
-            style: TextStyle(color: changePercent >= 0 ? Colors.green : Colors.red),
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            crossAxisAlignment: CrossAxisAlignment.end,
+            children: [
+              // Display the appropriate image based on positive/negative change
+              Image.asset(
+                changePercent >= 0 ? 'assets/images/line_up.png' : 'assets/images/line_down.png',
+                width: 42,
+                height: 42,
+              ),
+              const SizedBox(height: 2),
+              Text(
+                '${changePercent > 0 ? '+' : ''}${changePercent.toStringAsFixed(2)}%',
+                textAlign: TextAlign.right,
+                style: TextStyle(color: changePercent >= 0 ? Colors.green : Colors.red),
+              ),
+            ],
           ),
         ),
+
       ],
     ),
   );
