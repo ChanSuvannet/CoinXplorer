@@ -20,7 +20,7 @@ class SharedAppBar extends StatelessWidget implements PreferredSizeWidget {
       iconTheme: const IconThemeData(color: Colors.black),
       titleTextStyle: const TextStyle(
         color: Colors.black,
-        fontSize: 18,
+        fontSize: 20,
         fontWeight: FontWeight.w600,
       ),
       actions: [
