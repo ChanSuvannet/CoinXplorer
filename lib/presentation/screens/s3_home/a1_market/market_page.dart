@@ -3,6 +3,7 @@ import 'package:coinxplorer/data/models/coin_model.dart';
 import 'package:coinxplorer/data/services/coin_service.dart';
 import 'package:coinxplorer/presentation/widgets/coin/coin_list_tab.dart';
 import 'package:coinxplorer/presentation/widgets/coin/summary_card.dart';
+import 'package:coinxplorer/presentation/widgets/market/dexscan_tab.dart';
 import 'package:coinxplorer/presentation/widgets/shared/shared_appbar.dart';
 import 'package:flutter/material.dart';
 
@@ -90,7 +91,7 @@ class _MarketPageState extends State<MarketPage> with TickerProviderStateMixin {
                         ? const Center(child: CircularProgressIndicator())
                         : CoinListTab(coins: coins),
                     const Center(child: Text('WatchList Tab Coming Soon')),
-                    const Center(child: Text('Dexscan Tab Coming Soon')),
+                    const DexscanTab(),
                     const Center(child: Text('Earn Tab Coming Soon')),
                     const Center(child: Text('Chains Tab Coming Soon')),
                   ],
